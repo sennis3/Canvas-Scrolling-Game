@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Canvas Animation</title>
+  </head>
+<body>
+
+<canvas id="animationCanvas" width="400" height="400" style="border:1px solid #000000;">
+
+
+
+
+<script>
+var background = new Image();
+//background.src = "hs-2014-27-a-print.0.0.jpg";
+
+var lives = 3, score = 0;
+
+var userX = 375, userY = 200;
+var harmX = 0, harmY = Math.floor(Math.random() * (200 - 0 + 1)) + 0;
+var benX = 0, benY = Math.floor(Math.random() * (200 - 0 + 1)) + 0;
+//var y = 200;
+var c = document.getElementById("animationCanvas");   
+var ctx = c.getContext("2d");
+ctx.fillStyle = "red";
+
+console.log(c.width, c.height);
+
+function draw() {
+  // clear the canvas
+  ctx.clearRect(0, 0, c.width, c.height);
+
+
+  
+  
+  // increment coord to "move" l to r
+  harmX += 5;
+  benX += 4;
+
+  // handle edge condition
+  if (harmX > c.width) {
+    harmX -= c.width;
+    harmY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+  }
+
+  if (benX > c.width) {
+    benX -= c.width;
+    benY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+  }
+
+  if (Math.abs(benX - userX) < 50 && Math.abs(benY - userY) < 50) {
+    score += 100;
+    benX = 0;
+    benY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+  }
+
+  if (Math.abs(harmX - userX) < 50 && Math.abs(harmY - userY) < 50) {
+    lives--;
+    harmX = 0;
+    harmY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+  }
+
+  // draw objects
+
+  // draw the background image
+  ctx.drawImage(background, 0, 0);
+  
+  //Display Text
+  ctx.fillStyle = "black";
+  ctx.font = '18px serif';
+  ctx.fillText("Score: " + score, 0, 20);
+  ctx.fillText("Lives: " + lives, 340, 20);
+
+  // draw a circle
+  // start a new path;  
+  //  comment out begin and close path to see what happens
+  ctx.fillStyle = "red";
+  ctx.beginPath();
+
+  //  a circle at the coordinates
+  ctx.arc(harmX, harmY, 25, 0, Math.PI * 2);
+  ctx.fill();
+  //ctx.moveTo(userX,userY);
+  ctx.fillStyle = "blue";
+  ctx.beginPath();
+  ctx.arc(userX, userY, 25, 0, Math.PI * 2);
+  ctx.fill();
+  //ctx.moveTo(benX,benY);
+  ctx.fillStyle = "green";
+  ctx.beginPath();
+  ctx.arc(benX, benY, 25, 0, Math.PI * 2);
+
+  //ctx.closePath();
+
+  ctx.fill();
+
+
+
+  // call again when available
+  window.requestAnimationFrame(draw);
+}
+
+
+// kick it off
+window.requestAnimationFrame(draw);
+
+
+</script>
+
+</body>
+</html>

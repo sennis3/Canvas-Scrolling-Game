@@ -7,9 +7,6 @@
 
 <canvas id="animationCanvas" width="400" height="400" style="border:1px solid #000000;">
 
-
-
-
 <script>
 var background = new Image();
 //background.src = "hs-2014-27-a-print.0.0.jpg";
@@ -31,7 +28,24 @@ function draw() {
   ctx.clearRect(0, 0, c.width, c.height);
 
 
-  
+  document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 37:
+            //alert('left');
+            break;
+        case 38:
+            //alert('up');
+            userY -= 20;
+            break;
+        case 39:
+            //alert('right');
+            break;
+        case 40:
+            //alert('down');
+            userY += 20;
+            break;
+    }
+};
   
   // increment coord to "move" l to r
   harmX += 5;
@@ -42,18 +56,17 @@ function draw() {
     harmX -= c.width;
     harmY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
   }
-
   if (benX > c.width) {
     benX -= c.width;
     benY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
   }
 
+  // Handles collision with user
   if (Math.abs(benX - userX) < 50 && Math.abs(benY - userY) < 50) {
     score += 100;
     benX = 0;
     benY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
   }
-
   if (Math.abs(harmX - userX) < 50 && Math.abs(harmY - userY) < 50) {
     lives--;
     harmX = 0;

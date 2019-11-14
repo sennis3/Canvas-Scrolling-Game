@@ -18,7 +18,7 @@ var harmSprite = new Image();
 var benSprite = new Image();
 userSprite.src = "userAirplane-sprite.png";
 harmSprite.src = "enemyAirplane-sprite.png";
-benSprite.src = "star-sprite.png";
+benSprite.src = "coin-sprite.png";
 
 var numLives = 3, score = 0, levelNum = 1;
 var isPaused = false, gameOver = false;
@@ -30,16 +30,16 @@ var harm2X = 1550 + Math.floor(Math.random() * (201));
 var harm2Y = (Math.floor(Math.random() * 7) + 1) * 100;
 var harm3X = 1850 + Math.floor(Math.random() * (201)); 
 var harm3Y = (Math.floor(Math.random() * 7) + 1) * 100;
-var benX = 1250 + Math.floor(Math.random() * (201));  //Offset: X=60, Y=60; Radius: 50
+var benX = 1250 + Math.floor(Math.random() * (201));  //Offset: X=65, Y=60; Radius: 45
 var benY = (Math.floor(Math.random() * 7) + 1) * 100;
 
 var userOffsetX = 140, userOffsetY = 60;
 var harmOffsetX = 140, harmOffsetY = 160;
-var benOffsetX = 60, benOffsetY = 60;
+var benOffsetX = 65, benOffsetY = 60;
 
 var userRadiusX = 75, userRadiusY = 40;
 var harmRadiusX = 75, harmRadiusY = 40;
-var benRadiusX = 50, benRadiusY = 50;
+var benRadiusX = 45, benRadiusY = 45;
 
 var harmSpeed = 5, benSpeed = 4;
 

@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simple Canvas Animation</title>
+  <title>Scrolling Game</title>
   </head>
 <body>
 
-<canvas id="animationCanvas" width="400" height="400" style="border:1px solid #000000;">
+<canvas id="animationCanvas" width="1200" height="800" style="border:1px solid #000000;">
 
 <script>
 var background = new Image();
 //background.src = "hs-2014-27-a-print.0.0.jpg";
 
-var lives = 3, score = 0;
-
-var userX = 375, userY = 200;
-var harmX = 0, harmY = Math.floor(Math.random() * (200 - 0 + 1)) + 0;
-var benX = 0, benY = Math.floor(Math.random() * (200 - 0 + 1)) + 0;
+var numLives = 3, score = 0, levelNum = 1;
+var isPaused = false, gameOver = false;
+var userX = 75, userY = 400;
+var harmX = 1250, harmY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+var harm2X = 1250, harm2Y = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+var benX = 1250, benY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+var harmSpeed = 6, benSpeed = 5;
 //var y = 200;
 var c = document.getElementById("animationCanvas");   
 var ctx = c.getContext("2d");
@@ -30,47 +32,116 @@ function draw() {
 
   document.onkeydown = function(e) {
     switch (e.keyCode) {
+        case 32:
+            if (!isPaused && !gameOver)
+              isPaused = true;
+            else
+              isPaused = false;
+            break;
         case 37:
             //alert('left');
             break;
         case 38:
             //alert('up');
-            userY -= 20;
+            if (!isPaused && !gameOver)
+              userY -= 40;
             break;
         case 39:
             //alert('right');
             break;
         case 40:
             //alert('down');
-            userY += 20;
+            if (!isPaused && !gameOver)
+              userY += 40;
             break;
     }
-};
+  };
   
   // increment coord to "move" l to r
-  harmX += 5;
-  benX += 4;
 
-  // handle edge condition
-  if (harmX > c.width) {
-    harmX -= c.width;
-    harmY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+  if (!isPaused && !gameOver){
+    harmX -= harmSpeed;
+    harm2X -= harmSpeed;
+    benX -= benSpeed;
   }
-  if (benX > c.width) {
-    benX -= c.width;
-    benY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+  
+
+  // Handles edge condition
+  if (harmX < -50) {
+    harmX = c.width+50;
+    harmY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+  }
+  if (harm2X < -50) {
+    harm2X = c.width+50;
+    harm2Y = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+  }
+  if (benX < -50) {
+    benX = c.width+50;
+    benY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
   }
 
   // Handles collision with user
-  if (Math.abs(benX - userX) < 50 && Math.abs(benY - userY) < 50) {
+  if (Math.hypot(benX-userX, benY-userY) < 100) {
     score += 100;
-    benX = 0;
-    benY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+    benX = c.width+50;
+    benY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
   }
-  if (Math.abs(harmX - userX) < 50 && Math.abs(harmY - userY) < 50) {
-    lives--;
-    harmX = 0;
-    harmY = Math.floor(Math.random() * (400 - 0 + 1)) + 0;
+  if (Math.hypot(harmX-userX, harmY-userY) < 100) {
+    numLives--;
+    harmX = c.width+50;
+    harmY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+  }
+  if (Math.hypot(harm2X-userX, harm2Y-userY) < 100) {
+    numLives--;
+    harm2X = c.width+50;
+    harm2Y = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+  }
+
+  // Changing Levels
+  if (levelNum == 1 && score == 1000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 2 && score == 2000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 3 && score == 3000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 4 && score == 4000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 5 && score == 5000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 6 && score == 6000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 7 && score == 7000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 8 && score == 8000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+
+  // Check for game over
+  if (numLives == 0) {
+    gameOver = true;
   }
 
   // draw objects
@@ -78,30 +149,54 @@ function draw() {
   // draw the background image
   ctx.drawImage(background, 0, 0);
   
-  //Display Text
+  // Display Text
   ctx.fillStyle = "black";
-  ctx.font = '18px serif';
-  ctx.fillText("Score: " + score, 0, 20);
-  ctx.fillText("Lives: " + lives, 340, 20);
+  ctx.font = '24px serif';
+  ctx.textAlign = 'left';
+  ctx.fillText("Score: " + score, 5, 25);
+  ctx.textAlign = 'center';
+  ctx.fillText("Level " + levelNum, c.width/2, 25);
+  ctx.textAlign = 'right';
+  ctx.fillText("Lives: " + numLives, c.width - 5, 25);
+  if (isPaused){
+    ctx.textAlign = 'center';
+    ctx.fillText("Paused", c.width/2, 50);
+    ctx.fillText("Space to Resume", c.width/2, 780);
+  } 
+  else if (gameOver){
+    ctx.textAlign = 'center';
+    ctx.fillText("Game Over", c.width/2, 50);
+    ctx.fillText("Refresh to Play Again", c.width/2, 780);
+  }
+  else {
+    ctx.textAlign = 'center';
+    ctx.fillText("Space to Pause", c.width/2, 780);
+  }
 
   // draw a circle
   // start a new path;  
   //  comment out begin and close path to see what happens
+  
+  // Harm 1
   ctx.fillStyle = "red";
   ctx.beginPath();
-
-  //  a circle at the coordinates
-  ctx.arc(harmX, harmY, 25, 0, Math.PI * 2);
+  ctx.arc(harmX, harmY, 50, 0, Math.PI * 2);
   ctx.fill();
-  //ctx.moveTo(userX,userY);
+  // Harm 2
+  ctx.beginPath();
+  ctx.arc(harm2X, harm2Y, 50, 0, Math.PI * 2);
+  ctx.fill();
+
+  // User
   ctx.fillStyle = "blue";
   ctx.beginPath();
-  ctx.arc(userX, userY, 25, 0, Math.PI * 2);
+  ctx.arc(userX, userY, 50, 0, Math.PI * 2);
   ctx.fill();
-  //ctx.moveTo(benX,benY);
+  
+  // Benefit
   ctx.fillStyle = "green";
   ctx.beginPath();
-  ctx.arc(benX, benY, 25, 0, Math.PI * 2);
+  ctx.arc(benX, benY, 50, 0, Math.PI * 2);
 
   //ctx.closePath();
 

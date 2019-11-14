@@ -323,7 +323,7 @@ function draw() {
   ctx.drawImage(harmSprite, harm3X-harmOffsetX, harm3Y-harmOffsetY);
 
   // call again when available
-  //if (!gameOver)
+  if (!gameOver)
     window.requestAnimationFrame(draw);
 }
 

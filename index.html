@@ -10,6 +10,8 @@
 <script>
 var background = new Image();
 //background.src = "hs-2014-27-a-print.0.0.jpg";
+//background.src = "4632537-rainforest-images.jpeg";
+background.src = "sky-background.jpg";
 
 var numLives = 3, score = 0, levelNum = 1;
 var isPaused = false, gameOver = false;
@@ -185,10 +187,35 @@ function draw() {
     harmSpeed++;
     benSpeed++;
   }
+  if (levelNum == 15 && score == 7500) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 16 && score == 8000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 17 && score == 8500) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 18 && score == 9000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 19 && score == 9500) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
 
 
   // Check for game over
-  if (numLives == 0) {
+  if (numLives <= 0) {
     gameOver = true;
   }
 
@@ -198,7 +225,7 @@ function draw() {
   ctx.drawImage(background, 0, 0);
   
   // Display Text
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.font = '24px serif';
   ctx.textAlign = 'left';
   ctx.fillText("Score: " + score, 5, 25);
@@ -209,15 +236,18 @@ function draw() {
   if (isPaused){
     ctx.textAlign = 'center';
     ctx.fillText("Paused", c.width/2, 45);
+    ctx.fillStyle = "black";
     ctx.fillText("Space to Resume", c.width/2, 790);
   } 
   else if (gameOver){
     ctx.textAlign = 'center';
     ctx.fillText("Game Over", c.width/2, 50);
+    ctx.fillStyle = "black";
     ctx.fillText("Refresh to Play Again", c.width/2, 790);
   }
   else {
     ctx.textAlign = 'center';
+    ctx.fillStyle = "black";
     ctx.fillText("Space to Pause", c.width/2, 790);
   }
 

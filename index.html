@@ -13,12 +13,19 @@ var background = new Image();
 
 var numLives = 3, score = 0, levelNum = 1;
 var isPaused = false, gameOver = false;
-var userX = 75, userY = 400;
-var harmX = 1250, harmY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
-var harm2X = 1250, harm2Y = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
-var benX = 1250, benY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
-var harmSpeed = 6, benSpeed = 5;
-//var y = 200;
+var userX = 75, userY = 380;
+
+var harmX = 1250 + Math.floor(Math.random() * (201));
+var harmY = (Math.floor(Math.random() * 7) + 1) * 100;
+var harm2X = 1550 + Math.floor(Math.random() * (201)); 
+var harm2Y = (Math.floor(Math.random() * 7) + 1) * 100;
+var harm3X = 1850 + Math.floor(Math.random() * (201)); 
+var harm3Y = (Math.floor(Math.random() * 7) + 1) * 100;
+var benX = 1250 + Math.floor(Math.random() * (201)); 
+var benY = (Math.floor(Math.random() * 7) + 1) * 100;
+
+var harmSpeed = 5, benSpeed = 4;
+
 var c = document.getElementById("animationCanvas");   
 var ctx = c.getContext("2d");
 ctx.fillStyle = "red";
@@ -43,7 +50,7 @@ function draw() {
             break;
         case 38:
             //alert('up');
-            if (!isPaused && !gameOver)
+            if (!isPaused && !gameOver && userY > 100)
               userY -= 40;
             break;
         case 39:
@@ -51,7 +58,7 @@ function draw() {
             break;
         case 40:
             //alert('down');
-            if (!isPaused && !gameOver)
+            if (!isPaused && !gameOver && userY < 700)
               userY += 40;
             break;
     }
@@ -62,82 +69,123 @@ function draw() {
   if (!isPaused && !gameOver){
     harmX -= harmSpeed;
     harm2X -= harmSpeed;
+    harm3X -= harmSpeed;
     benX -= benSpeed;
   }
   
 
   // Handles edge condition
   if (harmX < -50) {
-    harmX = c.width+50;
-    harmY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+    harmX = 1250 + Math.floor(Math.random() * (201));
+    harmY = (Math.floor(Math.random() * 7) + 1) * 100;
   }
   if (harm2X < -50) {
-    harm2X = c.width+50;
-    harm2Y = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+    harm2X = 1250 + Math.floor(Math.random() * (201));
+    harm2Y = (Math.floor(Math.random() * 7) + 1) * 100;
+  }
+  if (harm3X < -50) {
+    harm3X = 1250 + Math.floor(Math.random() * (201));
+    harm3Y = (Math.floor(Math.random() * 7) + 1) * 100;
   }
   if (benX < -50) {
-    benX = c.width+50;
-    benY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+    benX = 1250 + Math.floor(Math.random() * (201));
+    benY = (Math.floor(Math.random() * 7) + 1) * 100;
   }
 
   // Handles collision with user
   if (Math.hypot(benX-userX, benY-userY) < 100) {
     score += 100;
-    benX = c.width+50;
-    benY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+    benX = 1250 + Math.floor(Math.random() * (201));
+    benY = (Math.floor(Math.random() * 7) + 1) * 100;
   }
   if (Math.hypot(harmX-userX, harmY-userY) < 100) {
     numLives--;
-    harmX = c.width+50;
-    harmY = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+    harmX = 1250 + Math.floor(Math.random() * (201));
+    harmY = (Math.floor(Math.random() * 7) + 1) * 100;
   }
   if (Math.hypot(harm2X-userX, harm2Y-userY) < 100) {
     numLives--;
-    harm2X = c.width+50;
-    harm2Y = Math.floor(Math.random() * (800 - 0 + 1)) + 0;
+    harm2X = 1250 + Math.floor(Math.random() * (201));
+    harm2Y = (Math.floor(Math.random() * 7) + 1) * 100;
+  }
+  if (Math.hypot(harm3X-userX, harm3Y-userY) < 100) {
+    numLives--;
+    harm3X = 1250 + Math.floor(Math.random() * (201));
+    harm3Y = (Math.floor(Math.random() * 7) + 1) * 100;
   }
 
   // Changing Levels
-  if (levelNum == 1 && score == 1000) {
+  if (levelNum == 1 && score == 500) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
-  if (levelNum == 2 && score == 2000) {
+  if (levelNum == 2 && score == 1000) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
-  if (levelNum == 3 && score == 3000) {
+  if (levelNum == 3 && score == 1500) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
-  if (levelNum == 4 && score == 4000) {
+  if (levelNum == 4 && score == 2000) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
-  if (levelNum == 5 && score == 5000) {
+  if (levelNum == 5 && score == 2500) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
-  if (levelNum == 6 && score == 6000) {
+  if (levelNum == 6 && score == 3000) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
-  if (levelNum == 7 && score == 7000) {
+  if (levelNum == 7 && score == 3500) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
-  if (levelNum == 8 && score == 8000) {
+  if (levelNum == 8 && score == 4000) {
     levelNum++;
     harmSpeed++;
     benSpeed++;
   }
+  if (levelNum == 9 && score == 4500) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 10 && score == 5000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 11 && score == 5500) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 12 && score == 6000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 13 && score == 6500) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+  if (levelNum == 14 && score == 7000) {
+    levelNum++;
+    harmSpeed++;
+    benSpeed++;
+  }
+
 
   // Check for game over
   if (numLives == 0) {
@@ -160,17 +208,17 @@ function draw() {
   ctx.fillText("Lives: " + numLives, c.width - 5, 25);
   if (isPaused){
     ctx.textAlign = 'center';
-    ctx.fillText("Paused", c.width/2, 50);
-    ctx.fillText("Space to Resume", c.width/2, 780);
+    ctx.fillText("Paused", c.width/2, 45);
+    ctx.fillText("Space to Resume", c.width/2, 790);
   } 
   else if (gameOver){
     ctx.textAlign = 'center';
     ctx.fillText("Game Over", c.width/2, 50);
-    ctx.fillText("Refresh to Play Again", c.width/2, 780);
+    ctx.fillText("Refresh to Play Again", c.width/2, 790);
   }
   else {
     ctx.textAlign = 'center';
-    ctx.fillText("Space to Pause", c.width/2, 780);
+    ctx.fillText("Space to Pause", c.width/2, 790);
   }
 
   // draw a circle
@@ -185,6 +233,10 @@ function draw() {
   // Harm 2
   ctx.beginPath();
   ctx.arc(harm2X, harm2Y, 50, 0, Math.PI * 2);
+  ctx.fill();
+  // Harm 3
+  ctx.beginPath();
+  ctx.arc(harm3X, harm3Y, 50, 0, Math.PI * 2);
   ctx.fill();
 
   // User

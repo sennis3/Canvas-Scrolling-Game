@@ -5,7 +5,7 @@
   </head>
 <body>
 
-<canvas id="animationCanvas" width="1200" height="800" style="border:1px solid #000000;">
+<canvas id="animationCanvas" width="1200" height="795" style="border:1px solid #000000;">
 
 <script>
 var background = new Image();
@@ -269,18 +269,18 @@ function draw() {
     ctx.textAlign = 'center';
     ctx.fillText("Paused", c.width/2, 45);
     ctx.fillStyle = "black";
-    ctx.fillText("Space to Resume", c.width/2, 790);
+    ctx.fillText("Space to Resume", c.width/2, 785);
   } 
   else if (gameOver){
     ctx.textAlign = 'center';
     ctx.fillText("Game Over", c.width/2, 50);
     ctx.fillStyle = "black";
-    ctx.fillText("Refresh to Play Again", c.width/2, 790);
+    ctx.fillText("Refresh to Play Again", c.width/2, 785);
   }
   else {
     ctx.textAlign = 'center';
     ctx.fillStyle = "black";
-    ctx.fillText("Space to Pause", c.width/2, 790);
+    ctx.fillText("Space to Pause", c.width/2, 785);
   }
 
   // draw a circle

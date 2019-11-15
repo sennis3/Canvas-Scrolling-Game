@@ -127,18 +127,36 @@ function draw() {
   // Harms colliding with one another
   // Harm 1 with Harm 2
   if (Math.abs(harm2X - harmX) < (2*harmRadiusX) && harm2Y == harmY) {
-    harmX = 1250 + Math.floor(Math.random() * (201));
-    harmY = (Math.floor(Math.random() * 7) + 1) * 100;
+    if (harmX > harm2X) {
+      harmX = 1250 + Math.floor(Math.random() * (201));
+      harmY = (Math.floor(Math.random() * 7) + 1) * 100;
+    }
+    else {
+      harm2X = 1250 + Math.floor(Math.random() * (201));
+      harm2Y = (Math.floor(Math.random() * 7) + 1) * 100;
+    }
   }
   // Harm 1 with Harm 3
   if (Math.abs(harm3X - harmX) < (2*harmRadiusX) && harm3Y == harmY) {
-    harmX = 1250 + Math.floor(Math.random() * (201));
-    harmY = (Math.floor(Math.random() * 7) + 1) * 100;
+    if (harmX > harm3X) {
+      harmX = 1250 + Math.floor(Math.random() * (201));
+      harmY = (Math.floor(Math.random() * 7) + 1) * 100;
+    }
+    else {
+      harm3X = 1250 + Math.floor(Math.random() * (201));
+      harm3Y = (Math.floor(Math.random() * 7) + 1) * 100;
+    }
   }
   // Harm 2 with Harm 3
   if (Math.abs(harm2X - harm3X) < (2*harmRadiusX) && harm2Y == harm3Y) {
-    harm2X = 1250 + Math.floor(Math.random() * (201));
-    harm2Y = (Math.floor(Math.random() * 7) + 1) * 100;
+    if (harm2X > harm3X) {
+      harm2X = 1250 + Math.floor(Math.random() * (201));
+      harm2Y = (Math.floor(Math.random() * 7) + 1) * 100;
+    }
+    else {
+      harm3X = 1250 + Math.floor(Math.random() * (201));
+      harm3Y = (Math.floor(Math.random() * 7) + 1) * 100;
+    }
   }
 
   // Changing Levels
